@@ -4,10 +4,14 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1
+      - name: Step 1 (Checkout)
         uses: actions/checkout@v3
+
+      - name: Step 2 (Setup   ) 
+        uses: actions/setup-node@v3
         with:
-          repository: 'grupoboticario/eventhub-registry-engine'
-          ref: 'refs/tags/v1.14.0'
-          token: ${{ secrets.GIT_HUB_TOKEN }}
-          path: 'engine'
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
+
+      
