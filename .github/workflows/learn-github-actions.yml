@@ -14,8 +14,7 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
 
-      - name: Step 3 (Engine   )
-        uses: actions/checkout@v2
+      - name: Step 3 (Engine   )     
         with:
           repository: 'grupoboticario/eventhub-registry-engine'
           ref: 'refs/tags/v1.14.0'
