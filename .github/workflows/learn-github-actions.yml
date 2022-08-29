@@ -14,6 +14,13 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
 
-      - name: Step 3 (xxxxx)
-        uses: actions/checkout@v3
-      
+      - name: Step 3 (Engine   )
+        uses: actions/checkout@v2
+        with:
+          repository: 'grupoboticario/eventhub-registry-engine'
+          ref: 'refs/tags/v1.14.0'
+          token: ${{ secrets.GIT_HUB_TOKEN }}
+          path: 'engine'
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
