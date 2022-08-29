@@ -4,13 +4,35 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout.....
+      - name: Step 1 (Checkout)
         uses: actions/checkout@v3
-      - name: Setup............
+
+      - name: Step 2 (Setup   ) 
         uses: actions/setup-node@v3
         with:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-
-
+     
+      - name: Step 3 (Engine   )
+        uses: actions/checkout@v2
+        with:
+          repository: 'grupoboticario/eventhub-registry-engine'
+          ref: 'refs/tags/v1.14.0'
+          token: ${{ secrets.GIT_HUB_TOKEN }}
+          path: 'engine'
+         uses: actions/setup-node@v3
+        with:
+          node-version: 14
+     
+      - name: Step 3 (Setup pipeline)
+        run: |
+          cd engine/ && npm ci
+      - run: node ./engine/src/dump.js console
+        name: Output
+        env:
+          RUNNING_ENVIRONMENT: dev
+          LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
+          SCHEMA_REGISTRY_URL: ${{ secrets.SCHEMA_REGISTRY_URL }}
+          SCHEMA_REGISTRY_USER: ${{ secrets.SCHEMA_REGISTRY_USER }}
+          SCHEMA_REGISTRY_PASS: '${{ secrets.SCHEMA_REGISTRY_PASS }}
