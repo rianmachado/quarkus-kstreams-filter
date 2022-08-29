@@ -13,7 +13,6 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
-     
       - name: Step 3 (Engine   )
         uses: actions/checkout@v2
         with:
@@ -24,7 +23,6 @@ jobs:
          uses: actions/setup-node@v3
         with:
           node-version: 14
-     
       - name: Step 3 (Setup pipeline)
         run: |
           cd engine/ && npm ci
